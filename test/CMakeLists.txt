@@ -1,3 +1,7 @@
+cmake_minimum_required(VERSION 2.8.2)
+# Set support for c++ 11
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 # Download and unpack googletest at configure time
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -26,10 +30,12 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
 # dependencies automatically when using CMake 2.8.11 or
 # later. Otherwise we have to add them here ourselves.
 if (CMAKE_VERSION VERSION_LESS 2.8.11)
-  include_directories("${gtest_SOURCE_DIR}/include")
+  include_directories("${gtest_SOURCE_DIR}/include" ../include)
 endif()
+
+add_subdirectory("../" Interpreter)
 
 # Now simply link against gtest or gtest_main as needed. Eg
 add_executable(example main.cpp)
-target_link_libraries(example gtest_main)
+target_link_libraries(example gtest_main Interpreter)
 add_test(NAME example_test COMMAND example)
