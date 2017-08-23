@@ -69,11 +69,11 @@ void BrainFInterpreter::StartInterpeation(std::string target)
 {
     Reset();
 
-    if (CommandsValidator::IsInputCommandsValid(target))
-    {
-        std::string::iterator target_begin = begin(target);
-        AddCommand(target_begin, end(target));
-    }
+    if (!CommandsValidator::IsInputCommandsValid(target))
+        throw CommandsValidationException("Invalid command");
+
+    std::string::iterator target_begin = begin(target);
+    AddCommand(target_begin, end(target));
 }
 
 void BrainFInterpreter::StartExecution()

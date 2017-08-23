@@ -3,7 +3,20 @@
 
 #include <algorithm>
 #include <string>
-#include <regex>
+
+class CommandsValidationException : public std::exception
+{
+private:
+	std::string m_message;
+
+public:
+	explicit CommandsValidationException(const std::string& message) : m_message(message) {}
+
+    const char *what() const throw()
+    {
+    	return m_message.c_str();
+    }
+};
 
 class CommandsValidator
 {
