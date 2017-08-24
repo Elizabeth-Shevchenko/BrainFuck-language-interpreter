@@ -1,11 +1,14 @@
-#include "ArrayCells.h"
-#include <string>
 #include <iostream>
+
+#include "ArrayCells.h"
 
 namespace DataPointerArray
 {
     void ArrayCells::DecrDataPtrValue()
     {
+        if (m_cells[m_currentCell] - 1 < 0)
+            throw ArrayCellsException("DecrDataPtrValue: out of range");
+
         --m_cells[m_currentCell];
     }
 
@@ -16,14 +19,18 @@ namespace DataPointerArray
 
     void ArrayCells::MoveDataPtrLeft()
     {
-        if (m_currentCell - 1 >= 0)
-            --m_currentCell;
+        if (m_currentCell - 1 < 0)
+            throw ArrayCellsException("MoveDataPtrLeft: out of range");
+        
+        --m_currentCell;
     }
 
     void ArrayCells::MoveDataPtrRight()
     {
-        if (m_currentCell + 1 < BYTE_CELLS_MAX_COUNT)
-            ++m_currentCell;
+        if (m_currentCell + 1 >= BYTE_CELLS_MAX_COUNT)
+            throw ArrayCellsException("MoveDataPtrRight: out of range");
+
+        ++m_currentCell;
     }
 
     void ArrayCells::InputDataPtrValue()

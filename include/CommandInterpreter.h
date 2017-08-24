@@ -18,6 +18,12 @@ namespace Command
         static std::map<char, CommandType> m_commandsDictionary;
 
     public:
+        static bool IsCommand(const char cmd)
+        {
+            auto check = m_commandsDictionary.find(cmd);
+            return end(m_commandsDictionary) != check;
+        }
+
         static CommandType As_CommandType(const char cmdType)
         {
             auto check = m_commandsDictionary.find(cmdType);
@@ -36,7 +42,8 @@ namespace Command
         {'-', CommandType::DecrDataPtrValue},
         {'.', CommandType::OutputDataPtrValue},
         {',', CommandType::InputDataPtrValue},
-        {'[', CommandType::LoopBegin}
+        {'[', CommandType::LoopBegin},
+        {']', CommandType::LoopEnd}
     };
 
 }

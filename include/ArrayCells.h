@@ -2,9 +2,24 @@
 #define CURRENTCELL_H
 
 #include <vector>
+#include <string>
 
 namespace DataPointerArray
 {
+    class ArrayCellsException : public std::exception
+    {
+    private:
+        std::string m_message;
+
+    public:
+        explicit ArrayCellsException(const std::string& message) : m_message(message) {}
+
+        const char *what() const throw()
+        {
+            return m_message.c_str();
+        }
+    };
+
     /* Holds current state of the movable data pointer */
     class ArrayCells
     {

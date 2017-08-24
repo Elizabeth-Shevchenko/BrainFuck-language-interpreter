@@ -44,13 +44,13 @@ private:
 		return true;
 	}
 
-	// private bool IsUnknownCommandsInside(std::string commands)
-	// {
-	// 	for (auto cmd : commands)
-	// 	{
-	// 		if ()
-	// 	}
-	// }
+	static bool IsUnknownCommandsInside(std::string commands)
+	{
+		// for (auto cmd : commands)
+		// {
+		// 	//if ()
+		// }
+	}
 
 public:
     static bool IsInputCommandsValid(std::string commands)

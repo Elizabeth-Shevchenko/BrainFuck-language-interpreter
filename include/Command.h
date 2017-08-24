@@ -1,7 +1,24 @@
 #ifndef COMMANDBASE_H
 #define COMMANDBASE_H
 
-namespace Command {
+#include <string>
+
+namespace Command
+{
+	class CommandException : public std::exception
+    {
+    private:
+        std::string m_message;
+
+    public:
+        explicit CommandException(const std::string& message) : m_message(message) {}
+
+        const char *what() const throw()
+        {
+            return m_message.c_str();
+        }
+    };
+
     class Command
     {
     public:

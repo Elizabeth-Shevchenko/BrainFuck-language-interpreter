@@ -15,11 +15,14 @@ namespace Command
     {
         while (!m_cellsToModify->IsCurrentCellNull())
         {
-            for_each(begin(m_cmds), end(m_cmds), [](std::shared_ptr<Command> cmd){cmd->Execute();});
-//            for (auto i = 0; i < m_cmds.size(); ++i)
-//            {
-//                m_cmds[i]->Execute();
-//            }
+            try {
+                for_each(begin(m_cmds), end(m_cmds), [](std::shared_ptr<Command> cmd){cmd->Execute();});
+            }
+            catch (DataPointerArray::ArrayCellsException exception)
+            {
+                std::string details = exception.what();
+                throw CommandException("Complex Command: " + details);
+            }
         }
 
     }
