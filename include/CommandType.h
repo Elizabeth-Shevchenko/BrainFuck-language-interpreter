@@ -1,15 +1,15 @@
 #ifndef COMMANDTYPE_H
 #define COMMANDTYPE_H
 
-#include <type_traits>
-
 namespace Command
 {
     enum class CommandType : char
     {
-        MoveDataPtrRight = '>',   // to point to the next cell to the right
+        Unknown,                  // unknown command
 
-        MoveDataPtrLeft = '<',    // to point to the next cell to the left
+        MoveDataPtrRight = '>',   // point to the next cell to the right
+
+        MoveDataPtrLeft = '<',    // point to the next cell to the left
 
         IncrDataPtrValue = '+',   // (increase by one) the byte at the data pointer
 

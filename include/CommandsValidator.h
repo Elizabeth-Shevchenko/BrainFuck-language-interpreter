@@ -20,13 +20,42 @@ public:
 
 class CommandsValidator
 {
+private:
+	static bool IsBracketsNestedCorrectly(std::string commands)
+	{
+		std::string::iterator it = begin(commands);
+
+		for (; it != end(commands); ++it)
+		{
+			// can't start from the closed bracket
+			if (']' == *it)
+				return false;
+
+			if ('[' == *it)
+			{
+				// if bracket is opened should be another one to close it
+				auto res = std::find(it + 1, end(commands), ']');
+				if (res == end(commands))
+					return false;
+
+				commands.erase(res);
+			}
+		}
+		return true;
+	}
+
+	// private bool IsUnknownCommandsInside(std::string commands)
+	// {
+	// 	for (auto cmd : commands)
+	// 	{
+	// 		if ()
+	// 	}
+	// }
+
 public:
     static bool IsInputCommandsValid(std::string commands)
     {
-        auto openBrackets = std::count(begin(commands), end(commands), '[');
-        auto closeBrackets = std::count(begin(commands), end(commands), ']');
-
-        return (openBrackets == closeBrackets);
+        return IsBracketsNestedCorrectly(commands);
     }
 };
 

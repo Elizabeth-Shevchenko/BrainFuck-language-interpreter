@@ -36,6 +36,6 @@ endif()
 add_subdirectory("../" Interpreter)
 
 # Now simply link against gtest or gtest_main as needed. Eg
-add_executable(example main.cpp)
+add_executable(example main.cpp CommandInterpreter_tests.cpp)
 target_link_libraries(example gtest_main Interpreter)
 add_test(NAME example_test COMMAND example)
