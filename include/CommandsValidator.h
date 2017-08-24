@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <string>
 
+#include "CommandInterpreter.h"
+
 class CommandsValidationException : public std::exception
 {
 private:
@@ -46,16 +48,18 @@ private:
 
 	static bool IsUnknownCommandsInside(std::string commands)
 	{
-		// for (auto cmd : commands)
-		// {
-		// 	//if ()
-		// }
+		for (auto cmd : commands)
+		{
+			if (!Command::CommandInterpreter::IsCommand(cmd))
+				return true;
+		}
+		return false;
 	}
 
 public:
     static bool IsInputCommandsValid(std::string commands)
     {
-        return IsBracketsNestedCorrectly(commands);
+        return (IsBracketsNestedCorrectly(commands) && !IsUnknownCommandsInside(commands));
     }
 };
 
