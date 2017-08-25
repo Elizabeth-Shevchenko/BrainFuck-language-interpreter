@@ -1,16 +1,7 @@
 #include "gtest/gtest.h"
 #include "../include/CommandInterpreter.h"
 
-class CommandInterpreterTest : public ::testing::TestWithParam<char>
-{
-
-};
-
-INSTANTIATE_TEST_CASE_P(CommandInterpreterTestCase,
-                        CommandInterpreterTest,
-                        ::testing::Values('-', '+'));
-
-TEST(CommandInterpreterTest, ValidCommandsTest)
+TEST(CommandInterpreter, RequireThat_As_CommandType_ReturnsValidCommand_WhenCommandCanBeInterpreted)
 {
 	ASSERT_EQ(Command::CommandInterpreter::As_CommandType('+'), Command::CommandType::IncrDataPtrValue);
 	ASSERT_EQ(Command::CommandInterpreter::As_CommandType('-'), Command::CommandType::DecrDataPtrValue);
@@ -22,16 +13,9 @@ TEST(CommandInterpreterTest, ValidCommandsTest)
 	ASSERT_EQ(Command::CommandInterpreter::As_CommandType(']'), Command::CommandType::LoopEnd);
 }
 
-// TEST (CommandInterpreter, RequireThat_As_CommandType_ReturnsCorrectCommand_WhenCommandCanBeInterpreted)
-// {
-//     auto cmdAsChar = '+'; // (increase by one) the byte at the data pointer (Command::CommandType::IncrDataPtrValue)
+TEST (CommandInterpreter, RequireThat_As_CommandType_ReturnsUnknownCommand_WhenCommandCanNotBeInterpreted)
+{
+	auto cmdAsChar = '='; // unknown command
 
-//     ASSERT_EQ(Command::CommandInterpreter::As_CommandType(cmdAsChar), Command::CommandType::IncrDataPtrValue);
-// }
-
-// TEST (CommandInterpreter, RequireThat_As_CommandType_ReturnsUnknownCommand_WhenCommandCanNotBeInterpreted)
-// {
-// 	auto cmdAsChar = '='; // unknown command
-
-// 	ASSERT_EQ(Command::CommandInterpreter::As_CommandType(cmdAsChar), Command::CommandType::Unknown);
-// }
+	ASSERT_EQ(Command::CommandInterpreter::As_CommandType(cmdAsChar), Command::CommandType::Unknown);
+}
